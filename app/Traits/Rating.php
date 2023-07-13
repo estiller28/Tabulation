@@ -52,7 +52,7 @@ trait Rating {
     }
 
     public function enabledTopThreeQandA (){
-        $criteria = Criteria::where('name', 'Top 3 Q & A')
+        $criteria = Criteria::where('name', 'Top 3 Question and Answer')
             ->where('status', 1)->first();
 
         if(!$criteria){

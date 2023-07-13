@@ -20,32 +20,55 @@ class ScoreResults extends Component
         $this->casualWearResults = Candidate::withCount(['scores as average_score' => function ($query) {
             $query->where('criteria_id', 1)
                 ->select(DB::raw('avg(score)'));
+        }])->with(['scores' => function ($query) {
+            $query->join('users', 'users.id', '=', 'scores.user_id')
+                ->where('scores.criteria_id', 1)
+                ->orderBy('scores.user_id', 'asc');
         }])->orderByDesc('average_score')
             ->get();
+
 
         $this->summerWearResults = Candidate::withCount(['scores as average_score' => function ($query) {
             $query->where('criteria_id', 2)
                 ->select(DB::raw('avg(score)'));
+        }])->with(['scores' => function ($query) {
+            $query->join('users', 'users.id', '=', 'scores.user_id')
+                ->where('scores.criteria_id', 2)
+            ->orderBy('scores.user_id', 'asc');
         }])->orderByDesc('average_score')
             ->get();
 
         $this->filipinanaResults = Candidate::withCount(['scores as average_score' => function ($query) {
             $query->where('criteria_id', 3)
                 ->select(DB::raw('avg(score)'));
+        }])->with(['scores' => function ($query) {
+            $query->join('users', 'users.id', '=', 'scores.user_id')
+                ->where('scores.criteria_id', 3)
+                ->orderBy('scores.user_id', 'asc');
         }])->orderByDesc('average_score')
             ->get();
+
 
         $this->topFiveResults = Candidate::withCount(['scores as average_score' => function ($query) {
             $query->where('criteria_id', 4)
                 ->select(DB::raw('avg(score)'));
+        }])->with(['scores' => function ($query) {
+            $query->join('users', 'users.id', '=', 'scores.user_id')
+                ->where('scores.criteria_id', 4)
+                ->orderBy('scores.user_id', 'asc');
         }])->orderByDesc('average_score')
             ->get();
 
         $this->topThreeResults = Candidate::withCount(['scores as average_score' => function ($query) {
             $query->where('criteria_id', 5)
                 ->select(DB::raw('avg(score)'));
+        }])->with(['scores' => function ($query) {
+            $query->join('users', 'users.id', '=', 'scores.user_id')
+                ->where('scores.criteria_id', 5)
+                ->orderBy('scores.user_id', 'asc');
         }])->orderByDesc('average_score')
             ->get();
+
     }
     public function render()
     {
@@ -57,5 +80,4 @@ class ScoreResults extends Component
             'topThreeResults' => $this->readyToLoad ? $this->topThreeResults : [],
         ]);
     }
-
 }

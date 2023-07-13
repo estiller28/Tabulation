@@ -17,6 +17,6 @@ class Candidate extends Model
     ];
 
     public function scores(){
-        return $this->hasMany(Score::class, 'candidate_id', 'id');
+        return $this->hasMany(Score::class);
     }
 }
